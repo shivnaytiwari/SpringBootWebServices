@@ -24,7 +24,7 @@ public class UserService {
         ArrayList<UserData> list = new ArrayList<>();
 
         for (User user : users) {
-            list.add(new UserData(user.getId(), user.getName()));
+            list.add(new UserData(user.getId(), user.getName(), user.getEmail(),"********"));
         }
 
         return list;
@@ -33,13 +33,16 @@ public class UserService {
     public CommonResponse signup(UserData user) {
 
         try {
-            User first = new User(user.name,user.email,user.password);
-            userRepo.save(first);
+
+            boolean exists = userRepo.existsUserByEmail(user.email);
+            if (exists) {
+                return new CommonResponse(false, "User email is already registered!!");   
+            }
+            User userData = new User(user.name, user.email, user.password);
+            userRepo.save(userData);
             return new CommonResponse(true, "User signup successfull");
-            // return "success";
         } catch (Exception e) {
             return new CommonResponse(false, "Failed to save user data e: " + e.getMessage());
-            // return "fsiled";
         }
     }
 
