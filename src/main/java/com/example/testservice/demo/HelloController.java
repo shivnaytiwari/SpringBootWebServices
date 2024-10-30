@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.testservice.CommonResponse;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class HelloController {
@@ -24,10 +28,16 @@ public class HelloController {
 		return userService.getUsers();
 	}
 
-	@PostMapping("/add_user")
-	public String addUser(@RequestParam(name = "name", required = false) String userName) {
-		System.err.println("name param: "+userName+"   : "+Thread.currentThread());
-		return userService.saveUser(userName);
+	// @PostMapping("/login")
+	// public String login(@RequestParam(name = "name", required = false) String userName) {
+	// 	System.err.println("name param: "+userName+"   : "+Thread.currentThread());
+	// 	return userService.saveUser(userName);
+	// }
+
+	@PostMapping("/signup")
+	public CommonResponse addUser(@RequestBody UserData user) {
+		System.err.println("user: "+user);
+		return userService.signup(user);
 	}
 
 }

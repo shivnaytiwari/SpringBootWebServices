@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.testservice.demo.repo.UserRepo;
+import com.example.testservice.CommonResponse;
 import com.example.testservice.demo.bean.User;
 
 import java.util.ArrayList;
@@ -29,14 +30,16 @@ public class UserService {
         return list;
     }
 
-    public String saveUser(String name) {
+    public CommonResponse signup(UserData user) {
 
         try {
-            User first = new User(name);
+            User first = new User(user.name,user.email,user.password);
             userRepo.save(first);
-            return "user data saved";
+            return new CommonResponse(true, "User signup successfull");
+            // return "success";
         } catch (Exception e) {
-            return "failed to save user data e: " + e.getMessage();
+            return new CommonResponse(false, "Failed to save user data e: " + e.getMessage());
+            // return "fsiled";
         }
     }
 

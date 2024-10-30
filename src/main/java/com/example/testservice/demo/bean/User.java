@@ -11,6 +11,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     String name;
+    String email;
+    String password;
 
     public int getId(){
         return id;
@@ -21,6 +23,11 @@ public class User {
         return name;
     }
 
+    public String getEmail(){
+        return email;
+    }
+
+
     public User() {
     }
 
@@ -28,8 +35,9 @@ public class User {
         this.name = name;
     }
 
-    public User(int id, String name) {
-        this.id = id;
+    public User( String name,String email,String password) {
         this.name = name;
+        this.email=email;
+        this.password=password;
     }
 }
