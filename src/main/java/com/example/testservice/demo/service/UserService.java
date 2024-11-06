@@ -1,12 +1,12 @@
-package com.example.testservice.demo;
-
-import java.util.UUID;
+package com.example.testservice.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.testservice.demo.Entity.User;
+import com.example.testservice.demo.dto.CommonResponse;
+import com.example.testservice.demo.dto.UserData;
 import com.example.testservice.demo.repo.UserRepo;
-import com.example.testservice.CommonResponse;
-import com.example.testservice.demo.bean.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class UserService {
         ArrayList<UserData> list = new ArrayList<>();
 
         for (User user : users) {
-            list.add(new UserData(user.getId(), user.getName(), user.getEmail(),"********"));
+            list.add(new UserData( user.getName(), user.getEmail(),"********"));
         }
 
         return list;
@@ -34,11 +34,11 @@ public class UserService {
 
         try {
 
-            boolean exists = userRepo.existsUserByEmail(user.email);
+            boolean exists = userRepo.existsUserByEmail(user.getEmail());
             if (exists) {
                 return new CommonResponse(false, "User email is already registered!!");   
             }
-            User userData = new User(user.name, user.email, user.password);
+            User userData = new User(user.getName(), user.getEmail(), user.getPassword());
             userRepo.save(userData);
             return new CommonResponse(true, "User signup successfull");
         } catch (Exception e) {

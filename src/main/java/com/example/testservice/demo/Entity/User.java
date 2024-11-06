@@ -1,4 +1,4 @@
-package com.example.testservice.demo.bean;
+package com.example.testservice.demo.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

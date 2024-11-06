@@ -1,4 +1,4 @@
-package com.example.testservice;
+package com.example.testservice.demo.dto;
 
 
 public class CommonResponse {
